@@ -34,14 +34,15 @@ namespace RainbowSchoolDataManagement
                 switch (n)
                 {
                     case "1":
-                        if (File.Exists(path))
+                        if (File.Exists(fullPath))
                         {
                             Console.WriteLine("Teacher Details::" + "\n");
-                            string[] stud = File.ReadAllLines(path);
+                            string[] stud = File.ReadAllLines(fullPath);
                             foreach (string line in stud)
                             {
                                 Console.WriteLine(line);
                             }
+
                         }
                         else
                         {
@@ -50,7 +51,7 @@ namespace RainbowSchoolDataManagement
 
                         break;
                     case "2":
-                        if (!File.Exists(path))
+                        if (!File.Exists(fullPath))
                         {
                             Directory.CreateDirectory(path);
                             File.Create(fullPath);
@@ -59,11 +60,11 @@ namespace RainbowSchoolDataManagement
                         Console.WriteLine("Enter details in this format: Id, Name, Class, Section:");
                         string teach = Console.ReadLine();
 
-                        File.WriteAllText(path, details + "\n" + teach);
+                        File.WriteAllText(fullPath, details + "\n" + teach);
                         break;
 
                     case "3":
-                        if (!File.Exists(path))
+                        if (File.Exists(fullPath))
                         {
                             string teacher = String.Empty;
                             Console.WriteLine("Enter Teacher Id to Update:");
@@ -88,21 +89,12 @@ namespace RainbowSchoolDataManagement
                                 Console.WriteLine("Invalid Teacher Id.");
                                 return;
                             }
-
-                            //string[] subArray = teacher.Split(',');
-
-
-                            //Teacher teachObj = new Teacher();
-                            //teachObj.Id = subArray[0];
-                            //teachObj.Name = subArray[1];
-                            //teachObj.Class = subArray[2];
-                            //teachObj.Section = subArray[3];
-                            //list.Add(teachObj);
-
-                            for(int i = 0; i < teacherList.Length; i++)
+                            details = string.Empty;
+                            for (int i = 0; i < teacherList.Length; i++)
                             {
-                                File.WriteAllText(path, teacherList[i]);
+                                details = details+'\n'+teacherList[i];
                             }
+                            File.WriteAllText(fullPath, details);
                         }
                         else
                         {
